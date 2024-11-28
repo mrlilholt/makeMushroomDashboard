@@ -43,15 +43,17 @@
       color: #00796B;
     }
     canvas {
-      margin-top: 20px;
-      width: 100%;
-      max-width: 400px;
-      height: auto;
+      margin: 20px auto; /* Center the canvas */
+      display: block; /* Ensures block-level behavior for auto margins */
+      width: 100%; /* Make it responsive */
+      max-width: 400px; /* Set maximum width */
+      height: auto; /* Maintain aspect ratio */
     }
     footer {
       margin-top: 20px;
       font-size: 0.8em;
       color: #777;
+      text-align: center;
     }
   </style>
 </head>
@@ -63,7 +65,7 @@
     <div id="humidity" class="data">Humidity: <span>--</span> %</div>
     <div id="timestamp" class="data">Last Updated: <span>--</span></div>
 
-    <!-- Chart Canvas -->
+    <!-- Centered Chart Canvas -->
     <canvas id="dataChart"></canvas>
   </div>
   <footer>
