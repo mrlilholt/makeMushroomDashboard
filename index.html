@@ -44,20 +44,21 @@
       margin-top: 20px;
       font-size: 0.8em;
       color: #777;
+      text-align: center;
     }
   </style>
 </head>
 <body>
   <div class="container">
     <!-- Add Logo -->
-    <img src="assets/chickenOfTheWoods.png" alt="Chicken of the Woods Logo" class="logo">
+    <img src="assets/chicken_of_the_woods_logo.png" alt="Chicken of the Woods Logo" class="logo">
     <h1>Mushroom Growing Dashboard</h1>
     <div id="temperature" class="data">Temperature: <span>--</span> °F</div>
     <div id="humidity" class="data">Humidity: <span>--</span> %</div>
     <div id="timestamp" class="data">Last Updated: <span>--</span></div>
   </div>
   <footer>
-    Data provided by your Particle-powered Mushroom Monitoring System.
+    Data provided by the Amazing Particle-powered Mushroom Monitoring System.
   </footer>
   <script>
     async function fetchData() {
@@ -66,9 +67,23 @@
         if (!response.ok) throw new Error('Network response was not OK');
 
         const data = await response.json();
+
+        // Format the timestamp into a human-readable format
+        const timestamp = new Date(data.data.timestamp);
+        const formattedTimestamp = timestamp.toLocaleString('en-US', {
+          weekday: 'long', // e.g., Thursday
+          year: 'numeric', // e.g., 2024
+          month: 'long',   // e.g., November
+          day: 'numeric',  // e.g., 28
+          hour: 'numeric', // e.g., 6
+          minute: 'numeric', // e.g., 21
+          hour12: true     // Display in 12-hour format (e.g., PM)
+        });
+
+        // Update the dashboard
         document.getElementById('temperature').innerHTML = `Temperature: <span>${data.data.temperature}</span> °F`;
         document.getElementById('humidity').innerHTML = `Humidity: <span>${data.data.humidity}</span> %`;
-        document.getElementById('timestamp').innerHTML = `Last Updated: <span>${data.data.timestamp}</span>`;
+        document.getElementById('timestamp').innerHTML = `Last Updated: <span>${formattedTimestamp}</span>`;
       } catch (error) {
         console.error('Error fetching data:', error);
       }
@@ -80,4 +95,3 @@
   </script>
 </body>
 </html>
-
