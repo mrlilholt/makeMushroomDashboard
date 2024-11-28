@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mushroom Growing Dashboard</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      padding: 20px;
+    }
+    h1 {
+      color: #4CAF50;
+    }
+    .data {
+      font-size: 24px;
+      margin: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Mushroom Growing Dashboard</h1>
+    <div id="temperature" class="data">Temperature: -- °F</div>
+    <div id="humidity" class="data">Humidity: -- %</div>
+    <div id="timestamp" class="data">Last Updated: --</div>
+  </div>
+  <script>
+    async function fetchData() {
+      try {
+        const response = await fetch('https://webhook.site/your-webhook-url'); // Replace with your Make.com webhook endpoint
+        const data = await response.json();
+        
+        // Populate the dashboard
+        document.getElementById('temperature').innerText = `Temperature: ${data.temperature.toFixed(2)} °F`;
+        document.getElementById('humidity').innerText = `Humidity: ${data.humidity.toFixed(2)} %`;
+        document.getElementById('timestamp').innerText = `Last Updated: ${data.timestamp}`;
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    }
+
+    // Fetch data every 5 seconds
+    setInterval(fetchData, 5000);
+    fetchData();
+  </script>
+</body>
+</html>
