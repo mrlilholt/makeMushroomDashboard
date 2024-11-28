@@ -33,13 +33,16 @@
   <script>
     async function fetchData() {
       try {
-        const response = await fetch('https://hook.us2.make.com/m4931bf1f9mumtkyhyramai8lqbt71fm'); // Replace with your Make.com webhook endpoint
-        const data = await response.json();
+        // Fetch data from Netlify Function or another API endpoint
+        const response = await fetch('https://mushroomdash.netlify.app/.netlify/functions/update'); 
+        if (!response.ok) throw new Error('Network response was not OK');
         
-        // Populate the dashboard
-        document.getElementById('temperature').innerText = `Temperature: ${data.temperature.toFixed(2)} °F`;
-        document.getElementById('humidity').innerText = `Humidity: ${data.humidity.toFixed(2)} %`;
-        document.getElementById('timestamp').innerText = `Last Updated: ${data.timestamp}`;
+        const data = await response.json();
+
+        // Update the dashboard with the fetched data
+        document.getElementById('temperature').innerText = `Temperature: ${data.data.temperature} °F`;
+        document.getElementById('humidity').innerText = `Humidity: ${data.data.humidity} %`;
+        document.getElementById('timestamp').innerText = `Last Updated: ${data.data.timestamp}`;
       } catch (error) {
         console.error('Error fetching data:', error);
       }
